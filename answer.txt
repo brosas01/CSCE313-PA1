@@ -1,0 +1,13 @@
+File Transfer Time vs File Size
+
+| File Size (MB)   | Transfer Time (ms)      | Chart                |
+|------------------|-------------------------|----------------------|
+| 1 MB             | 557 ms                  | ###########          |
+| 10 MB            | 5216 ms                 | ######################################################################################################## |
+| 50 MB            | 11217 ms                | ################################################################################################################################################################################################################################ |
+| 100 MB           | 19075 ms                | ############################################################################################################################################################################################################################################################################################################################################################################################# |
+
+Each '#' represents approximately 50ms of transfer time.
+
+
+Explanation: The main bottleneck is the repeated inter-process communication overhead caused by transferring the file in small chunks. Each chunk requires a separate request and response between the client and server, which introduces latency. While buffer size affects how many chunks are needed, the fundamental limitation is the cost of handling each chunk individually through FIFO channels.
